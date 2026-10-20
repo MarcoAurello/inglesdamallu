@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#D12E39">
+  <meta name="author" content="Marco Nunes">
+  <meta name="description" content="Verbs Domino da Mallu: dominó de palavras em inglês e português com 200 palavras que mais confundem os brasileiros.">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Verbs Domino">
+  <title>Verbs Domino · Inglês da Mallu</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- PT Serif e Source Sans 3: as fontes do site inglesdamallu.com.br -->
+  <link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,700;1,700&family=Source+Sans+3:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=2">
+</head>
+<body>
+  <a class="pular-conteudo" href="#conteudo">Ir para o jogo</a>
+
+  <main class="app" id="conteudo">
+    <header class="topo">
+      <span class="marca" aria-hidden="true">Inglês <i>da</i> Mallu</span>
+      <div class="placar" id="placar" hidden>
+        <span class="relogio" id="relogio" role="timer" aria-label="Tempo de jogo">00:00</span>
+        <span class="pontos" id="pontos" aria-label="Pontos">⭐ 0</span>
+      </div>
+      <div class="topo-botoes">
+        <button class="btn-icone" id="btn-musica" type="button" aria-pressed="true" aria-label="Música de fundo">🎵</button>
+        <button class="btn-icone" id="btn-som" type="button" aria-pressed="true" aria-label="Voz e sons">🔊</button>
+      </div>
+    </header>
+
+    <!-- 1. Nome -->
+    <section class="tela" id="tela-nome" aria-labelledby="titulo-nome">
+      <h1 class="titulo" id="titulo-nome">Verbs <span>Domino</span></h1>
+      <img class="foto-pro" src="assets/mallu/mallu.jpg" alt="Professora Mallu sorrindo, com livros de inglês" width="440" height="623">
+      <form class="cartao" id="form-nome" autocomplete="off">
+        <label class="campo" for="campo-nome">Qual é o seu nome?</label>
+        <input type="text" id="campo-nome" maxlength="30" required autocapitalize="characters" spellcheck="false">
+        <p class="erro" id="erro-nome" role="alert"></p>
+        <button class="btn-grande" type="submit">ENTRAR ▶</button>
+      </form>
+    </section>
+
+    <!-- 2. Início -->
+    <section class="tela" id="tela-inicio" aria-labelledby="ola">
+      <div class="cena">
+        <div class="pose aponta" role="img" aria-label="Mallu apontando"></div>
+        <p class="balao" id="ola">Hi, <b id="nome-jogador"></b>! 👋<br>Vamos ligar as palavras em inglês com o português?</p>
+      </div>
+      <p class="turma" id="turma" hidden></p>
+      <div class="modos">
+        <button class="modo" id="btn-aprender" type="button">
+          <span class="modo-icone" aria-hidden="true">📘</span>
+          <b>Aprender</b>
+          <small>Sem relógio, com tradução, exemplos e dicas</small>
+        </button>
+        <button class="modo desafio" id="btn-desafio" type="button">
+          <span class="modo-icone" aria-hidden="true">🏆</span>
+          <b>Desafio</b>
+          <small>Tempo por jogada, pontos e medalhas</small>
+        </button>
+      </div>
+      <div class="linha-botoes">
+        <button class="btn-sec" id="btn-professor" type="button">👩‍🏫 Professor</button>
+        <button class="btn-sec" id="btn-trocar" type="button">👤 Trocar nome</button>
+        <button class="btn-sec" id="btn-instalar" type="button" hidden>📲 Instalar</button>
+      </div>
+      <a class="btn-whats" href="https://wa.me/5531992704914?text=Oi%20Mallu!%20Vim%20pelo%20jogo%20Verbs%20Domino." target="_blank" rel="noopener"><svg viewBox="0 0 32 32" width="24" height="24" aria-hidden="true"><path fill="#fff" d="M16 3C9 3 3.3 8.6 3.3 15.6c0 2.4.7 4.7 1.9 6.7L3 29l6.9-2.1c1.9 1 4 1.6 6.1 1.6 7 0 12.7-5.7 12.7-12.7C28.7 8.6 23 3 16 3zm0 23.2c-1.9 0-3.8-.5-5.4-1.5l-.4-.2-4.1 1.2 1.2-4-.3-.4c-1.1-1.7-1.7-3.6-1.7-5.7C5.3 9.7 10.1 5 16 5s10.6 4.7 10.6 10.6S21.9 26.2 16 26.2zm5.8-7.9c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.6-1.6-1-.9-1.6-1.9-1.8-2.2-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.4.3-.6.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.2 1.4 3.5c.2.2 2.4 3.6 5.7 5 .8.3 1.4.5 1.9.7.8.3 1.5.2 2.1.1.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/></svg> Falar com a Mallu</a>
+      <p class="link-rodape"><a href="https://instagram.com/inglesdamallu" target="_blank" rel="noopener">@inglesdamallu</a> · <a href="privacidade.html">Privacidade</a></p>
+    </section>
+
+    <!-- Ajuda para instalar -->
+    <section class="tela" id="tela-instalar" aria-labelledby="titulo-instalar">
+      <div class="cartao">
+        <h2 class="subtitulo" id="titulo-instalar">📲 Instalar o jogo</h2>
+        <ol class="passos" id="passos-instalar"></ol>
+        <button class="btn-grande" id="btn-fechar-instalar" type="button">OK</button>
+      </div>
+    </section>
+
+    <!-- 3. Carregando: a Mallu corre enquanto o jogo é montado -->
+    <section class="tela" id="tela-carregando" aria-live="polite">
+      <div class="pista">
+        <div class="corredora" role="img" aria-label="Mallu correndo"></div>
+      </div>
+      <h2 class="subtitulo">Preparing your game…</h2>
+      <ul class="etapas" id="etapas">
+        <li>🎲 Sorteando 28 palavras do banco de 200</li>
+        <li>🔗 Montando o circuito de peças</li>
+        <li>✅ Conferindo as 28 conexões</li>
+        <li>🃏 Distribuindo 7 peças para cada jogador</li>
+      </ul>
+      <div class="barra"><div class="barra-cheia" id="barra-carregando"></div></div>
+    </section>
+
+    <!-- 4. Jogo -->
+    <section class="tela" id="tela-jogo" aria-label="Jogo">
+      <div class="oponentes" id="oponentes"></div>
+      <div class="trilho-vez" id="trilho-vez" hidden><div class="trilho-cheio" id="vez-cheio"></div></div>
+
+      <div class="mesa-area">
+        <div class="mesa" id="mesa" aria-label="Mesa: peças jogadas, da ponta esquerda para a direita"></div>
+        <div class="fala" id="fala-box">
+          <div class="pose mini aponta" id="pose-mallu" role="img" aria-label="Mallu"></div>
+          <p id="fala" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <div class="mao" id="mao" aria-label="Suas peças"></div>
+
+      <div class="acoes">
+        <button class="btn-passo" id="btn-passo" type="button">✋ PASSO</button>
+        <button class="btn-redondo" id="btn-dica" type="button" aria-label="Dica">💡</button>
+        <button class="btn-redondo" id="btn-pausa" type="button" aria-label="Pausar">⏸</button>
+      </div>
+
+      <div class="sobreposicao" id="pausa" hidden>
+        <div class="cartao">
+          <h2 class="subtitulo">⏸ Pausado</h2>
+          <p class="texto-medio">O relógio está parado.</p>
+          <button class="btn-grande" id="btn-continuar" type="button">▶ CONTINUAR</button>
+          <button class="btn-sec" id="btn-terminar" type="button">🏁 Terminar e ver o relatório</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Relatório -->
+    <section class="tela" id="tela-relatorio" aria-labelledby="fim-titulo">
+      <div class="cartao cartao-fim">
+        <div class="pulando" id="pose-fim" role="img" aria-label="Mallu comemorando"></div>
+        <h2 class="subtitulo" id="fim-titulo"></h2>
+        <p class="texto-grande" id="fim-resumo"></p>
+      </div>
+
+      <div class="cartao relatorio" id="relatorio">
+        <h3>📋 Relatório para a Mallu</h3>
+        <p class="relatorio-info" id="relatorio-info"></p>
+        <div class="selo" id="selo"></div>
+        <div class="numeros" id="numeros"></div>
+        <h4>Tempo por peça</h4>
+        <canvas id="grafico-pecas" width="900" height="400" role="img" aria-label="Gráfico do tempo de cada peça jogada"></canvas>
+        <p class="legenda"><span class="ponto otimo"></span> certa de primeira <span class="ponto regular"></span> certa depois de errar <span class="ponto treinar"></span> tempo esgotado</p>
+        <h4>Palavras com mais dificuldade</h4>
+        <canvas id="grafico-palavras" width="900" height="340" role="img" aria-label="Gráfico das palavras com mais erros"></canvas>
+        <h4>Confusões e pontos de atenção</h4>
+        <ul class="dificuldades" id="dificuldades"></ul>
+        <h4>Palavras para revisar</h4>
+        <div class="revisar" id="revisar"></div>
+        <details class="todas">
+          <summary>As 28 palavras desta partida</summary>
+          <div class="lista-palavras" id="lista-palavras"></div>
+        </details>
+        <div id="evolucao-area" hidden>
+          <h4>Evolução nas últimas partidas</h4>
+          <canvas id="grafico-evolucao" width="900" height="300" role="img" aria-label="Gráfico da evolução nas últimas partidas"></canvas>
+        </div>
+        <p class="dica-envio" id="dica-envio" role="status" hidden></p>
+        <div class="linha-botoes">
+          <button class="btn-grande btn-whats-grande" id="btn-compartilhar" type="button"><svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><path fill="#fff" d="M16 3C9 3 3.3 8.6 3.3 15.6c0 2.4.7 4.7 1.9 6.7L3 29l6.9-2.1c1.9 1 4 1.6 6.1 1.6 7 0 12.7-5.7 12.7-12.7C28.7 8.6 23 3 16 3zm0 23.2c-1.9 0-3.8-.5-5.4-1.5l-.4-.2-4.1 1.2 1.2-4-.3-.4c-1.1-1.7-1.7-3.6-1.7-5.7C5.3 9.7 10.1 5 16 5s10.6 4.7 10.6 10.6S21.9 26.2 16 26.2zm5.8-7.9c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.6-1.6-1-.9-1.6-1.9-1.8-2.2-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.4.3-.6.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.2 1.4 3.5c.2.2 2.4 3.6 5.7 5 .8.3 1.4.5 1.9.7.8.3 1.5.2 2.1.1.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/></svg> Enviar para a Mallu</button>
+          <button class="btn-sec" id="btn-pdf" type="button">📄 Baixar PDF</button>
+        </div>
+      </div>
+
+      <div class="linha-botoes">
+        <button class="btn-grande" id="btn-de-novo" type="button">↻ Jogar de novo</button>
+        <button class="btn-sec" id="btn-sair" type="button">🏠 Início</button>
+      </div>
+    </section>
+
+    <!-- 6. Professor -->
+    <section class="tela" id="tela-professor" aria-labelledby="titulo-prof">
+      <div class="cartao">
+        <h2 class="subtitulo" id="titulo-prof">👩‍🏫 Modo Professor</h2>
+        <p class="texto-medio">Escolha as categorias para a turma. O jogo sorteia 28 palavras delas, sem traduções repetidas.</p>
+        <div class="categorias" id="categorias"></div>
+        <p class="erro" id="erro-cat" role="alert"></p>
+        <div class="linha-botoes">
+          <button class="btn-sec" id="btn-todas" type="button">Marcar todas</button>
+          <button class="btn-sec" id="btn-copiar" type="button">🔗 Copiar link para a turma</button>
+        </div>
+        <p class="link-turma" id="link-turma"></p>
+        <div class="linha-botoes">
+          <button class="btn-grande" id="btn-prof-aprender" type="button">📘 Aprender</button>
+          <button class="btn-grande desafio" id="btn-prof-desafio" type="button">🏆 Desafio</button>
+        </div>
+      </div>
+      <div class="cartao">
+        <h3 class="h3-prof">Dificuldades neste aparelho</h3>
+        <p class="texto-medio">Palavras que os alunos mais erraram aqui (somando todos os nomes).</p>
+        <div id="prof-dificuldades"></div>
+        <h3 class="h3-prof">Alunos neste aparelho</h3>
+        <div id="prof-alunos"></div>
+      </div>
+      <button class="btn-sec" id="btn-prof-voltar" type="button">🏠 Voltar</button>
+    </section>
+  </main>
+
+  <footer class="credito">Inglês da Mallu · © <b>Marco Nunes</b> — Pedagogia Gamificada</footer>
+
+  <script src="vendor/jspdf.umd.min.js"></script>
+  <script src="palavras.js?v=2"></script>
+  <script src="domino.js?v=2"></script>
+  <script src="musica.js?v=2"></script>
+  <script src="jogo.js?v=2"></script>
+  <script>
+    if ('serviceWorker' in navigator && location.protocol === 'https:') {
+      window.addEventListener('load', () => navigator.serviceWorker.register('service-worker.js'));
+    }
+  </script>
+</body>
+</html>

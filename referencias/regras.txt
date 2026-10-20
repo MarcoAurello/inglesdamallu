@@ -1,0 +1,295 @@
+verbs domino
+
+banco de 200 palavras e expressões essenciais do inglês, especialmente aquelas que costumam gerar dúvidas entre estudantes brasileiros.
+
+A cada partida, o sistema seleciona 28 palavras desse banco, apresenta suas traduções e monta um dominó de sequência. O objetivo é aprender vocabulário, reconhecer significados e praticar palavras como went, who, where, which, whose, did e does.
+
+Conceito do jogo
+- Banco de conteúdo: 200 palavras e expressões em inglês, com tradução e exemplo de uso.
+- Peças por partida: exatamente 28.
+- Cada peça: uma extremidade em inglês e outra em português.
+- Seleção: 28 palavras distintas, escolhidas do banco conforme o nível e o histórico do aluno.
+- Objetivo: conectar as extremidades de acordo com as regras de correspondência do dominó.
+- Aprendizagem: após cada jogada, o sistema pode apresentar uma frase curta que contextualize a palavra.
+- Progressão: o jogador revisita as palavras que errou em partidas anteriores.
+
+Para que o jogo tenha uma sequência garantida, vamos usar uma regra de encadeamento circular.
+1. O sistema sorteia 28 palavras distintas do banco de 200.
+2. Embaralha a ordem dessas palavras.
+3. Cria cada peça com a palavra em inglês de uma entrada e a tradução em português da próxima entrada.
+4. O jogador conecta uma extremidade em português à palavra equivalente em inglês da peça seguinte.
+5. A última peça conecta novamente à primeira, formando um circuito de 28 peças.
+
+A lista será organizada por categorias pedagógicas. Não se trata de um ranking estatístico universal dos erros dos alunos brasileiros, mas de uma seleção inicial de palavras frequentes, verbos irregulares, auxiliares, preposições e expressões que merecem prática.
+Categoria A — Perguntas e pronomes
+#	Inglês	Português
+1	who	quem
+2	whose	de quem
+3	whom	quem / a quem
+4	what	o que / qual
+5	which	qual / quais
+6	where	onde
+7	when	quando
+8	why	por que
+9	how	como
+10	whoever	quem quer que
+11	whatever	o que quer que
+12	whichever	qualquer um que
+13	someone	alguém
+14	anyone	qualquer pessoa / alguém
+15	everyone	todos
+16	nobody	ninguém
+17	somebody	alguém
+18	anybody	qualquer pessoa
+19	everybody	todo mundo
+20	something	alguma coisa
+Categoria B — Verbos irregulares essenciais
+#	Inglês	Português
+21	went	foi / foram
+22	gone	ido
+23	go	ir
+24	came	veio / vieram
+25	come	vir
+26	saw	viu / viram
+27	seen	visto
+28	see	ver
+29	did	fez / fizeram
+30	done	feito
+31	make	fazer / criar
+32	made	fez / feito
+33	took	pegou / levou
+34	taken	pego / levado
+35	gave	deu / deram
+36	given	dado
+37	got	conseguiu / recebeu
+38	gotten	obtido / conseguido
+39	knew	sabia / conhecia
+40	known	sabido / conhecido
+Categoria C — Outros verbos que confundem
+#	Inglês	Português
+41	thought	pensou / achou
+42	think	pensar / achar
+43	bought	comprou
+44	buy	comprar
+45	brought	trouxe
+46	bring	trazer
+47	taught	ensinou
+48	teach	ensinar
+49	caught	pegou / capturou
+50	catch	pegar / capturar
+51	found	encontrou
+52	find	encontrar
+53	felt	sentiu
+54	feel	sentir
+55	left	saiu / deixou
+56	leave	sair / deixar
+57	kept	manteve / guardou
+58	keep	manter / guardar
+59	told	contou / disse
+60	tell	contar / dizer
+Categoria D — Verbos do cotidiano
+#	Inglês	Português
+61	say	dizer
+62	said	disse
+63	speak	falar
+64	spoke	falou
+65	talk	conversar
+66	hear	ouvir
+67	heard	ouviu
+68	listen	escutar
+69	write	escrever
+70	wrote	escreveu
+71	read	ler / leu
+72	written	escrito
+73	eat	comer
+74	ate	comeu
+75	drink	beber
+76	drank	bebeu
+77	sleep	dormir
+78	slept	dormiu
+79	drive	dirigir
+80	drove	dirigiu
+Categoria E — Auxiliares e verbos modais
+#	Inglês	Português
+81	do	fazer / auxiliar
+82	does	faz / auxiliar
+83	have	ter / auxiliar
+84	has	tem / auxiliar
+85	had	tinha / teve
+86	am	sou / estou
+87	is	é / está
+88	are	são / estão
+89	was	era / estava
+90	were	eram / estavam
+91	be	ser / estar
+92	been	sido / estado
+93	being	sendo / estando
+94	can	poder / conseguir
+95	could	poderia / podia
+96	should	deveria
+97	would	iria / faria
+98	must	dever / ter que
+99	may	pode / talvez
+100	might	poderia / talvez
+Categoria F — Tempo e frequência
+#	Inglês	Português
+101	already	já
+102	yet	ainda / já
+103	still	ainda
+104	just	apenas / acabado de
+105	ever	alguma vez
+106	never	nunca
+107	always	sempre
+108	often	frequentemente
+109	usually	geralmente
+110	sometimes	às vezes
+111	rarely	raramente
+112	soon	em breve
+113	ago	atrás
+114	during	durante
+115	while	enquanto
+116	until	até
+117	since	desde / já que
+118	lately	ultimamente
+119	recently	recentemente
+120	nowadays	hoje em dia
+Categoria G — Preposições e conectores
+#	Inglês	Português
+121	although	embora
+122	though	embora / apesar disso
+123	however	porém / entretanto
+124	unless	a menos que
+125	despite	apesar de
+126	instead	em vez disso
+127	between	entre dois ou mais elementos
+128	among	entre vários
+129	through	através de
+130	across	através de / do outro lado
+131	within	dentro de / no prazo de
+132	without	sem
+133	throughout	ao longo de / por todo
+134	toward	em direção a
+135	against	contra
+136	behind	atrás de
+137	beyond	além de
+138	beneath	abaixo de
+139	above	acima de
+140	below	abaixo de
+Categoria H — Palavras pequenas com grandes diferenças
+#	Inglês	Português
+141	much	muito (incontáveis)
+142	many	muitos (contáveis)
+143	few	poucos
+144	a few	alguns / algumas
+145	little	pouco
+146	a little	um pouco
+147	less	menos
+148	fewer	menos (contáveis)
+149	enough	suficiente
+150	too	também / excessivamente
+151	either	qualquer um dos dois / também não
+152	neither	nenhum dos dois
+153	both	ambos / os dois
+154	each	cada
+155	every	todo / cada
+156	another	outro / mais um
+157	other	outro / outros
+158	others	outros
+159	own	próprio
+160	such	tal / tão
+Categoria I — Adjetivos e advérbios frequentes
+#	Inglês	Português
+161	actually	na verdade
+162	currently	atualmente
+163	eventually	finalmente / com o tempo
+164	perhaps	talvez
+165	probably	provavelmente
+166	almost	quase
+167	quite	bastante / relativamente
+168	rather	bastante / preferencialmente
+169	hardly	mal / quase não
+170	barely	mal / por pouco
+171	likely	provável
+172	unlikely	improvável
+173	available	disponível
+174	aware	ciente
+175	afraid	com medo
+176	boring	entediante
+177	bored	entediado
+178	exciting	empolgante
+179	excited	animado
+180	used to	costumava
+Categoria J — Expressões muito úteis
+#	Inglês	Português
+181	have to	ter que
+182	had to	teve que
+183	be able to	ser capaz de
+184	used to	costumava
+185	get up	levantar-se
+186	find out	descobrir
+187	give up	desistir
+188	look for	procurar
+189	look after	cuidar de
+190	turn on	ligar
+191	turn off	desligar
+192	pick up	pegar / buscar
+193	run out of	ficar sem
+194	get along	dar-se bem
+195	come back	voltar
+196	go back	voltar
+197	figure out	entender / descobrir
+198	take care	cuidar / tomar cuidado
+199	at least	pelo menos
+200	as soon as	assim que
+
+
+O jogo precisa transformar o erro em aprendizado.
+Exemplo de feedback
+Palavra selecionada
+WENT
+Tradução correta: FOI
+
+Exemplo: “She went to school.” — “Ela foi à escola.”
+
+Se o aluno confundir com WHERE:
+WHERE = ONDE
+
+Exemplo: “Where are you?” — “Onde você está?”
+
+O jogo apresenta a diferença e permite tentar novamente. O erro fica registrado para ajudar a selecionar exercícios futuros.
+
+
+
+
+Regras para a seleção inteligente
+No primeiro acesso, o sistema pode sortear as 28 palavras de maneira equilibrada entre as categorias. Nas partidas seguintes, pode dar mais peso às palavras que o aluno errou.
+
+Sugestão de regras:
+1. Selecionar 28 entradas distintas.
+2. Evitar que uma partida seja formada apenas por verbos ou apenas por preposições.
+3. Dar preferência a palavras ainda não dominadas pelo jogador.
+4. Repetir palavras difíceis em partidas futuras, sem repetir excessivamente as mesmas combinações.
+5. Garantir que todas as palavras selecionadas tenham traduções revisadas.
+6. Gerar o circuito e validar todas as 28 conexões antes de iniciar a partida   crie um loading com o personagem enquanto prepara o jogo 
+
+
+Modo Aprender
+
+Sem cronômetro, com tradução, exemplos e dicas disponíveis.
+
+
+
+
+Modo Desafio
+
+Tempo limitado, pontuação e medalhas ao concluir as 28 peças.
+
+
+
+Modo Professor
+
+Permite escolher categorias, acompanhar dificuldades e selecionar conjuntos para a turma.
+
+
+
+
