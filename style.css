@@ -135,7 +135,28 @@ body[data-tela="tela-jogo"] .marca { display: none; }
 .trilho-vez.acabando .trilho-cheio { background: var(--vermelho); }
 
 .mesa-area { flex: 1; min-height: 110px; width: 100%; position: relative; background: #2f6b4f; border-radius: 18px; box-shadow: inset 0 0 0 4px #27583f, inset 0 6px 18px rgba(0,0,0,0.25); overflow: hidden; }
-.mesa { position: absolute; inset: 0; overflow-y: auto; padding: 10px; display: flex; flex-wrap: wrap; align-content: flex-start; align-items: center; gap: 5px; }
+.mesa { position: absolute; inset: 0; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; }
+/* a corrente fica no meio da mesa: a primeira peça começa no centro e cresce para os dois lados */
+.cadeia { margin: auto; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 5px; max-width: 100%; }
+.peca-mesa { transition: opacity 0.4s, filter 0.4s, transform 0.3s; }
+/* na sua vez, as peças do meio apagam e só as pontas ficam em evidência */
+.mesa.sua-vez .peca-mesa:not(.inicio):not(.fim) { opacity: 0.28; filter: grayscale(0.7); }
+.mesa.sua-vez .peca-mesa span:not(.aberta) { opacity: 0.45; }
+.mesa.sua-vez .peca-mesa .aberta { box-shadow: inset 0 0 0 3px var(--amarelo); background: #fff8e0; }
+.mesa.sua-vez .peca-mesa.inicio, .mesa.sua-vez .peca-mesa.fim { transform: scale(1.12); margin: 0 6px; }
+/* aviso de cada jogada */
+.anuncio {
+  position: absolute; left: 50%; top: 10px; transform: translateX(-50%); z-index: 4; width: min(94%, 400px);
+  display: flex; gap: 10px; align-items: center; background: #fff; border-radius: 18px; padding: 12px 14px;
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.35); border: 3px solid var(--amarelo); pointer-events: none;
+}
+.anuncio.entra { animation: aviso 0.35s ease; }
+.anuncio-avatar { font-size: 2.2rem; line-height: 1; }
+.anuncio p { margin: 0; font-size: 1.05rem; line-height: 1.3; }
+.anuncio .par { white-space: nowrap; }
+.anuncio .pt { color: var(--vermelho-escuro); }
+.anuncio small { display: block; color: var(--texto-suave); font-size: 0.88rem; margin-top: 3px; }
+@keyframes aviso { from { opacity: 0; transform: translate(-50%, -20px) scale(0.9); } }
 .mesa-vazia { color: #e9f5ee; text-align: center; width: 100%; margin: 10px 0 0; font-size: 1.05rem; }
 .peca-mesa { display: inline-flex; border-radius: 7px; background: #fffdf8; box-shadow: 0 2px 0 rgba(0,0,0,0.3); font-size: 0.95rem; font-weight: 700; overflow: hidden; }
 .peca-mesa span { padding: 3px 6px; }

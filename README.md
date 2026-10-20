@@ -1,4 +1,4 @@
-# Verbs Domino · Inglês da Mallu
+# Let’s play with Mallu · Inglês da Mallu (dominó de palavras)
 
 Dominó de palavras em inglês e português (HTML5, funciona como app/PWA, offline), feito para a professora
 **Mallu** ([inglesdamallu.com.br](https://inglesdamallu.com.br/)). Regras completas em `referencias/regras.txt`.
@@ -19,6 +19,10 @@ Mesmo padrão do jogoABC: HTML/CSS/JS puros, relatório com PDF e Dockerfile ngi
 - **O erro vira aprendizado**: ao errar, a Mallu mostra o significado e um exemplo da palavra escolhida e o que a ponta pedia
   (ex.: "WHERE = onde · Where are you?... Aqui precisa da palavra em inglês para foi / foram"). Passar tendo peça também é avisado.
 - Toque numa peça para **ouvir a palavra em inglês** (voz do aparelho, en-US).
+- A primeira peça fica **no meio da mesa** e a corrente cresce para os dois lados.
+- Os colegas jogam devagar e **cada jogada aparece num aviso** no alto da mesa ("Ben conectou went em foi / foram", com exemplo
+  no Aprender). Na **sua vez**, as peças do meio apagam e só as **pontas** ficam em destaque; a Mallu diz quais são as palavras das pontas.
+  O ritmo fica em `RITMO` no `jogo.js`.
 
 ## Modos
 - **Aprender**: sem pressa, com tradução, frase de exemplo a cada jogada e dica (depois de 2 erros a peça certa brilha).

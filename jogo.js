@@ -7,7 +7,12 @@
   const TEMPO_VEZ = 30;           // Desafio: segundos para cada jogada sua
   const RAPIDA = 8;               // Desafio: jogada certa em até 8 s ganha bônus
   const DICA_APOS = 2;            // Aprender: depois de 2 erros seguidos, a peça certa brilha
-  const ESPERA_ROBO = { aprender: 1300, desafio: 750 };   // tempo (ms) que os colegas levam para jogar
+  // ritmo da mesa (ms): os colegas "pensam", jogam e um aviso mostra a ligação que fizeram
+  const RITMO = {
+    aprender: { pensa: 1600, liga: 3000, passa: 1500 },
+    desafio: { pensa: 1100, liga: 2000, passa: 1100 },
+    rapido: { pensa: 400, liga: 1000, passa: 500 },     // depois que você bateu
+  };
   const COLEGAS = [null, { nome: 'Ben', avatar: '🧑🏽' }, { nome: 'Kate', avatar: '👩🏼‍🦰' }, { nome: 'Sam', avatar: '🧑🏿‍🦱' }];
   const CHAVE_NOME = 'domino:nome';
   const CHAVE_PREF = 'domino:pref';
@@ -226,12 +231,13 @@
     const piscar = jogo.selecionada !== null && jogo.vez === 0 && !jogo.bloqueado && !jogo.acabou;
     const dicaLado = jogo.dicaAtual ? jogo.dicaAtual.lado : null;
     const encaixe = (lado) => `<button class="encaixe ${lado}${piscar ? ' piscando' : ''}${dicaLado === lado ? ' dica' : ''}" type="button" data-lado="${lado}" aria-label="Colocar na ponta ${lado}">${lado === 'esquerda' ? '◀' : '▶'}</button>`;
-    $('mesa').innerHTML = jogo.mesa.length
+    $('mesa').classList.toggle('sua-vez', jogo.vez === 0 && !jogo.bloqueado && !jogo.acabou && jogo.mesa.length > 0);
+    $('mesa').innerHTML = '<div class="cadeia">' + (jogo.mesa.length
       ? encaixe('esquerda') + jogo.mesa.map((p, k) => {
         const ini = k === 0, fim = k === jogo.mesa.length - 1;
-        return `<span class="peca-mesa${p.id === jogo.ultima ? ' nova' : ''}">${meia(p.en.en, `en${ini ? ' aberta' : ''}${ini && piscar ? ' piscando' : ''}`)}${meia(p.pt.pt, `pt${fim ? ' aberta' : ''}${fim && piscar ? ' piscando' : ''}`)}</span>`;
+        return `<span class="peca-mesa${p.id === jogo.ultima ? ' nova' : ''}${ini ? ' inicio' : ''}${fim ? ' fim' : ''}">${meia(p.en.en, `en${ini ? ' aberta' : ''}${ini && piscar ? ' piscando' : ''}`)}${meia(p.pt.pt, `pt${fim ? ' aberta' : ''}${fim && piscar ? ' piscando' : ''}`)}</span>`;
       }).join('') + encaixe('direita')
-      : `<button class="encaixe comeco${piscar ? ' piscando' : ''}" type="button" data-lado="direita">${piscar ? 'Toque aqui para colocar a primeira peça' : 'Mesa vazia: escolha uma peça sua para começar 👇'}</button>`;
+      : `<button class="encaixe comeco${piscar ? ' piscando' : ''}" type="button" data-lado="direita">${piscar ? 'Toque aqui para colocar a primeira peça' : 'Mesa vazia: escolha uma peça sua para começar 👇'}</button>`) + '</div>';
     const nova = $('mesa').querySelector('.nova');
     if (nova) nova.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
 
@@ -262,6 +268,22 @@
   function fecharFala() { clearTimeout(timerFala); $('fala-box').hidden = true; }
   $('fala-box').addEventListener('click', fecharFala);
 
+  // ---------- Aviso de cada jogada (popup no meio da mesa) ----------
+  const ritmo = () => (jogo.maos[0].length ? RITMO[jogo.modo] : RITMO.rapido);
+  let timerAnuncio = null;
+  function anunciar(p, html, ms) {
+    const el = $('anuncio');
+    el.innerHTML = `<span class="anuncio-avatar" aria-hidden="true">${p === 0 ? '🙋' : COLEGAS[p].avatar}</span><p>${html}</p>`;
+    el.hidden = false;
+    el.classList.remove('entra'); void el.offsetWidth; el.classList.add('entra');
+    clearTimeout(timerAnuncio);
+    timerAnuncio = setTimeout(() => { el.hidden = true; }, Math.max(600, ms - 250));
+  }
+  function textoLigacao(quem, w) {
+    const exemplo = jogo.modo === 'aprender' ? `<small>“${esc(w.exEn)}” — ${esc(w.exPt)}</small>` : '';
+    return `<b>${esc(quem)}</b> conectou <span class="par"><b class="en">${esc(w.en)}</b> em <b class="pt">${esc(w.pt)}</b></span>${exemplo}`;
+  }
+
   // ---------- Vez de cada jogador ----------
   function comecarVez() {
     if (jogo.acabou || jogo.pausado) return;
@@ -276,13 +298,17 @@
       jogo.usouDica = false;
       jogo.inicioVez = segundos();
       desenhar();
+      if (jogo.mesa.length) {
+        const esq = jogo.mesa[0], dir = jogo.mesa[jogo.mesa.length - 1];
+        mallu('aponta', `<b>Sua vez, ${esc(nome)}!</b> As palavras das pontas são <b class="en">${esc(esq.en.en)}</b> e <b class="pt">${esc(dir.pt.pt)}</b>. Qual peça sua encaixa numa delas?`, true);
+      }
       return;
     }
     jogo.bloqueado = true;
     jogo.situacao[p] = '🤔';
     desenhar();
     clearTimeout(timerRobo);
-    timerRobo = setTimeout(() => jogadaColega(p), ESPERA_ROBO[jogo.modo]);
+    timerRobo = setTimeout(() => jogadaColega(p), ritmo().pensa);
   }
 
   let timerProx = null;
@@ -298,18 +324,22 @@
   function jogadaColega(p) {
     if (jogo.acabou || jogo.pausado) return;
     const op = Domino.jogaveis(jogo.mesa, jogo.maos[p]);
+    let espera;
     if (!op.length) {
       jogo.situacao[p] = 'passou';
       som('passo');
+      espera = ritmo().passa;
+      anunciar(p, `<b>${COLEGAS[p].nome}</b> passou ✋<small>não tinha peça que encaixa</small>`, espera);
     } else {
       const peca = op[Math.floor(Math.random() * op.length)];
       const e = Domino.encaixe(jogo.mesa, peca);
       const lado = e === 'qualquer' ? 'direita' : e[Math.floor(Math.random() * e.length)];
+      const w = palavraLigada(peca, lado);
       colocar(p, peca, lado);
       jogo.situacao[p] = `jogou <b>${esc(peca.en.en)}</b>`;
+      espera = ritmo().liga;
+      anunciar(p, textoLigacao(COLEGAS[p].nome, w), espera);
     }
-    // quando você já bateu, os colegas terminam mais rápido
-    const espera = jogo.maos[0].length ? 450 : 150;
     desenhar();
     agendar(espera);
   }
@@ -389,8 +419,11 @@
       mallu('feliz', `${bateu ? '🎉 <b>Você bateu!</b> ' : '✅ '}<b class="en">${esc(w.en.toUpperCase())}</b> = ${esc(w.pt)}<br>${jogo.modo === 'aprender' ? exemplo : ganho}`);
     }
     falar(jogo.modo === 'aprender' ? w.exEn : w.en, 'en-US');
+    fecharFala();
+    const espera = ritmo().liga;
+    anunciar(0, inicio ? `<b>Você</b> começou com <span class="par"><b class="en">${esc(peca.en.en)}</b> | <b class="pt">${esc(peca.pt.pt)}</b></span>` : textoLigacao('Você', w), espera);
     desenhar();
-    agendar(jogo.modo === 'aprender' ? 1400 : 700);
+    agendar(espera);
   }
 
   function errou(peca, lado) {
@@ -455,8 +488,10 @@
     jogo.bloqueado = true;
     som('passo');
     mallu('aponta', 'Isso! Nenhuma peça encaixava, então você passou. 👍');
+    fecharFala();
+    anunciar(0, '<b>Você</b> passou ✋<small>certo: nenhuma peça encaixava</small>', ritmo().passa);
     desenhar();
-    agendar(500);
+    agendar(ritmo().passa);
   };
 
   // Desafio: acabou o tempo da jogada
@@ -560,7 +595,7 @@
     jogo.pausado = false;
     ligarRelogio();
     if (jogo.pendente) { jogo.pendente = false; proximaVez(); }
-    else if (jogo.vez !== 0) timerRobo = setTimeout(() => jogadaColega(jogo.vez), ESPERA_ROBO[jogo.modo]);
+    else if (jogo.vez !== 0) timerRobo = setTimeout(() => jogadaColega(jogo.vez), ritmo().pensa);
   };
   $('btn-terminar').onclick = () => { $('pausa').hidden = true; fimDaPartida(true); };
 
@@ -751,7 +786,7 @@
     const titulo = (t) => { if (y > 262) nova(); doc.setFont('helvetica', 'bold'); doc.setFontSize(13); doc.setTextColor(30, 108, 186); doc.text(t, L, y); y += 7; };
     doc.setFillColor(209, 46, 57); doc.rect(0, 0, 210, 30, 'F');
     doc.setTextColor(255, 255, 255); doc.setFont('helvetica', 'bold'); doc.setFontSize(20);
-    doc.text(`Verbs Domino - Relatório de ${r.nome}`, L, 14);
+    doc.text(`Let's play with Mallu - Relatório de ${r.nome}`, L, 14);
     doc.setFont('helvetica', 'normal'); doc.setFontSize(11);
     doc.text(`Inglês da Mallu  ·  modo ${r.modo === 'aprender' ? 'Aprender' : 'Desafio'}  ·  ${r.data.toLocaleDateString('pt-BR')} ${r.data.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`, L, 23);
     y = 40;
@@ -808,7 +843,7 @@
     const paginas = doc.getNumberOfPages();
     for (let i = 1; i <= paginas; i++) {
       doc.setPage(i); doc.setFontSize(9); doc.setTextColor(120, 110, 105);
-      doc.text('Verbs Domino · Inglês da Mallu (31) 99270-4914  ·  Pedagogia Gamificada · © Marco Nunes', L, 292);
+      doc.text("Let's play with Mallu · Inglês da Mallu (31) 99270-4914  ·  Pedagogia Gamificada · © Marco Nunes", L, 292);
     }
     return doc;
   }
@@ -818,7 +853,7 @@
     if (!ultimo) return;
     const doc = gerarPDF(ultimo);
     const arquivo = new File([doc.output('blob')], nomeArquivo(ultimo), { type: 'application/pdf' });
-    const texto = `Oi ${PROFESSORA}, segue o relatório do Verbs Domino de ${ultimo.nome}`;
+    const texto = `Oi ${PROFESSORA}, segue o relatório do jogo Let's play with Mallu de ${ultimo.nome}`;
     if (navigator.canShare && navigator.canShare({ files: [arquivo] })) {
       try { await navigator.share({ files: [arquivo], title: `Relatório de ${ultimo.nome}`, text: texto }); return; } catch (e) { if (e.name === 'AbortError') return; }
     }
