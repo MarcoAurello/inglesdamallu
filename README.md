@@ -13,8 +13,8 @@ Mesmo padrão do jogoABC: HTML/CSS/JS puros, relatório com PDF e Dockerfile ngi
   então **cada ponta tem uma só peça que encaixa**.
 - Seleção inteligente: no máximo ~1/3 da partida de uma categoria (nunca só verbos ou só preposições), prioridade para
   palavras ainda não vistas e para as que o aluno **errou**; as que ele já domina aparecem pouco.
-- Mesa com **4 jogadores** (você, Ben, Kate e Sam), **7 peças cada**. Você começa com qualquer peça. Na sua vez, escolha a peça
-  e toque numa ponta (ou arraste). Sem peça que encaixa: **✋ PASSO**. Quem fica sem peças "bate"; a partida termina quando o
+- Mesa com **4 jogadores** (você, Ben, Kate e Sam), **7 peças cada**. Você começa com qualquer peça. Na sua vez, toque numa peça sua:
+  as duas pontas da mesa **piscam**; toque na ponta onde ela encaixa (ou arraste a peça até lá). Sem peça que encaixa: **✋ PASSO**. Quem fica sem peças "bate"; a partida termina quando o
   circuito das 28 peças fecha.
 - **O erro vira aprendizado**: ao errar, a Mallu mostra o significado e um exemplo da palavra escolhida e o que a ponta pedia
   (ex.: "WHERE = onde · Where are you?... Aqui precisa da palavra em inglês para foi / foram"). Passar tendo peça também é avisado.
