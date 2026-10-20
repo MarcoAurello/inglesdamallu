@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- PT Serif e Source Sans 3: as fontes do site inglesdamallu.com.br -->
   <link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,700;1,700&family=Source+Sans+3:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=2">
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
   <a class="pular-conteudo" href="#conteudo">Ir para o jogo</a>
@@ -106,7 +106,7 @@
 
       <div class="mesa-area">
         <div class="mesa" id="mesa" aria-label="Mesa: peças jogadas, da ponta esquerda para a direita"></div>
-        <div class="fala" id="fala-box">
+        <div class="fala" id="fala-box" hidden role="status" title="Toque para fechar">
           <div class="pose mini aponta" id="pose-mallu" role="img" aria-label="Mallu"></div>
           <p id="fala" aria-live="polite"></p>
         </div>
@@ -116,7 +116,7 @@
 
       <div class="acoes">
         <button class="btn-passo" id="btn-passo" type="button">✋ PASSO</button>
-        <button class="btn-redondo" id="btn-dica" type="button" aria-label="Dica">💡</button>
+        <button class="btn-mallu" id="btn-dica" type="button"><span class="pose mini aponta" aria-hidden="true"></span>Dica da Mallu<span class="aviso-mallu" id="aviso-mallu" hidden aria-label="mensagem nova">!</span></button>
         <button class="btn-redondo" id="btn-pausa" type="button" aria-label="Pausar">⏸</button>
       </div>
 
@@ -204,10 +204,10 @@
   <footer class="credito">Inglês da Mallu · © <b>Marco Nunes</b> — Pedagogia Gamificada</footer>
 
   <script src="vendor/jspdf.umd.min.js"></script>
-  <script src="palavras.js?v=2"></script>
-  <script src="domino.js?v=2"></script>
-  <script src="musica.js?v=2"></script>
-  <script src="jogo.js?v=2"></script>
+  <script src="palavras.js?v=3"></script>
+  <script src="domino.js?v=3"></script>
+  <script src="musica.js?v=3"></script>
+  <script src="jogo.js?v=3"></script>
   <script>
     if ('serviceWorker' in navigator && location.protocol === 'https:') {
       window.addEventListener('load', () => navigator.serviceWorker.register('service-worker.js'));

@@ -175,14 +175,14 @@
 
     $('pontos').hidden = modo !== 'desafio';
     $('trilho-vez').hidden = modo !== 'desafio';
-    $('btn-dica').hidden = modo !== 'aprender';
+    fecharFala();
     mostrar('tela-jogo');
     ligarRelogio();
     desenhar();
     mallu('aponta', modo === 'aprender'
       ? `Você começa! Toque numa <b>peça sua</b> (lá embaixo) e depois na <b>mesa</b>. Ao tocar na peça, você ouve a palavra em inglês. 🔊`
-      : `Desafio! <b>${TEMPO_VEZ} s</b> por jogada. Toque numa peça sua e depois na ponta da mesa que pisca. Boa sorte! 🍀`);
-    if (jogo.aviso) mallu('aponta', jogo.aviso);
+      : `Desafio! <b>${TEMPO_VEZ} s</b> por jogada. Toque numa peça sua e depois na ponta da mesa que pisca. Boa sorte! 🍀`, true);
+    if (jogo.aviso) mallu('aponta', jogo.aviso, true);
     comecarVez();
   }
 
@@ -244,10 +244,23 @@
   }
 
   // balão da Mallu
-  function mallu(pose, html) {
+  // A fala da Mallu fica guardada no botão "Dica da Mallu" (com aviso de mensagem nova);
+  // só abre sozinha nos avisos importantes (erro, passe errado, tempo esgotado) e fecha depois de alguns segundos.
+  let timerFala = null;
+  function mallu(pose, html, abrir = false) {
     $('pose-mallu').className = `pose mini ${pose}`;
     $('fala').innerHTML = html;
+    $('aviso-mallu').hidden = false;
+    if (abrir) abrirFala(6000);
   }
+  function abrirFala(ms) {
+    $('fala-box').hidden = false;
+    $('aviso-mallu').hidden = true;
+    clearTimeout(timerFala);
+    timerFala = setTimeout(fecharFala, ms);
+  }
+  function fecharFala() { clearTimeout(timerFala); $('fala-box').hidden = true; }
+  $('fala-box').addEventListener('click', fecharFala);
 
   // ---------- Vez de cada jogador ----------
   function comecarVez() {
@@ -337,9 +350,9 @@
 
   function tentar(id, lado) {
     if (!jogo || jogo.acabou) return;
-    if (jogo.vez !== 0 || jogo.bloqueado) { mallu('pensa', `Espere a sua vez: agora é a vez de <b>${COLEGAS[jogo.vez]?.nome || '...'}</b>. ✋`); return; }
+    if (jogo.vez !== 0 || jogo.bloqueado) { mallu('pensa', `Espere a sua vez: agora é a vez de <b>${COLEGAS[jogo.vez]?.nome || '...'}</b>. ✋`, true); return; }
     const peca = jogo.maos[0].find((p) => p.id === id);
-    if (!peca) { mallu('aponta', 'Primeiro toque numa das suas peças. 👇'); return; }
+    if (!peca) { mallu('aponta', 'Primeiro toque numa das suas peças. 👇', true); return; }
     const e = Domino.encaixe(jogo.mesa, peca);
     if (e === 'qualquer' || e.includes(lado)) return acertou(peca, e === 'qualquer' ? 'direita' : lado);
     if (e.length) {   // encaixa, mas na outra ponta: vale, e a peça vai para o lugar certo
@@ -396,7 +409,7 @@
     const pedido = lado === 'esquerda'
       ? `Aqui precisa da tradução de <b class="en">${esc(precisava.en.toUpperCase())}</b>.`
       : `Aqui precisa da palavra em inglês para <b>${esc(precisava.pt)}</b>.`;
-    mallu(jogo.errosNaVez > 1 ? 'duvida' : 'pensa', `Quase! ${significado}<br>${pedido} Tente de novo!`);
+    mallu(jogo.errosNaVez > 1 ? 'duvida' : 'pensa', `Quase! ${significado}<br>${pedido} Tente de novo!`, true);
     falar(tentou.en, 'en-US');
     if (jogo.modo === 'aprender' && jogo.errosNaVez >= DICA_APOS) mostrarDica(false);
     else desenhar();
@@ -406,7 +419,7 @@
     if (!jogo || jogo.acabou || jogo.vez !== 0 || jogo.bloqueado || jogo.modo !== 'aprender') return;
     const op = Domino.jogaveis(jogo.mesa, jogo.maos[0]);
     if (!op.length) {
-      mallu('aponta', 'Nenhuma das suas peças encaixa agora. Toque em <b>✋ PASSO</b>.');
+      mallu('aponta', 'Nenhuma das suas peças encaixa agora. Toque em <b>✋ PASSO</b>.', true);
       desenhar();
       return;
     }
@@ -416,10 +429,16 @@
     jogo.selecionada = peca.id;
     if (!jogo.usouDica) { jogo.usouDica = true; jogo.dicas++; }
     const w = palavraLigada(peca, jogo.dicaAtual.lado);
-    mallu('aponta', `${pedida ? 'Dica' : 'Vou te ajudar'}: a peça <b class="en">${esc(peca.en.en)}</b> | ${esc(peca.pt.pt)} encaixa na ponta da mesa que está brilhando, porque <b class="en">${esc(w.en.toUpperCase())}</b> = ${esc(w.pt)}. 💡`);
+    mallu('aponta', `${pedida ? 'Dica' : 'Vou te ajudar'}: a peça <b class="en">${esc(peca.en.en)}</b> | ${esc(peca.pt.pt)} encaixa na ponta da mesa que está brilhando, porque <b class="en">${esc(w.en.toUpperCase())}</b> = ${esc(w.pt)}. 💡`, true);
     desenhar();
   }
-  $('btn-dica').onclick = () => mostrarDica(true);
+  $('btn-dica').onclick = () => {
+    if (!jogo) return;
+    if (!$('fala-box').hidden) return fecharFala();
+    const novo = !$('aviso-mallu').hidden;
+    if (!novo && jogo.modo === 'aprender' && jogo.vez === 0 && !jogo.bloqueado && !jogo.acabou) return mostrarDica(true);
+    abrirFala(8000);
+  };
 
   $('btn-passo').onclick = () => {
     if (!jogo || jogo.acabou || jogo.vez !== 0 || jogo.bloqueado) return;
@@ -427,7 +446,7 @@
     if (op.length) {
       jogo.passes.errados++;
       som('ops');
-      mallu('pensa', `Espere! Você <b>tem uma peça que encaixa</b>. Olhe de novo as duas pontas da mesa. 👀`);
+      mallu('pensa', `Espere! Você <b>tem uma peça que encaixa</b>. Olhe de novo as duas pontas da mesa. 👀`, true);
       if (jogo.modo === 'aprender') mostrarDica(false);
       return;
     }
@@ -447,7 +466,7 @@
     jogo.esgotados++;
     const op = Domino.jogaveis(jogo.mesa, jogo.maos[0]);
     if (!op.length) {
-      mallu('pensa', '⏰ O tempo acabou! Nenhuma peça encaixava: você passou.');
+      mallu('pensa', '⏰ O tempo acabou! Nenhuma peça encaixava: você passou.', true);
       desenhar();
       return agendar(900);
     }
@@ -461,7 +480,7 @@
     (hist[w.id] ??= { vistas: 1, erros: 0, acertos: 0 }).erros++;
     guardar(CHAVE_PAL + nome.toLowerCase(), hist);
     jogo.selecionada = null;
-    mallu('duvida', `⏰ O tempo acabou! A peça certa era <b class="en">${esc(peca.en.en)}</b> | ${esc(peca.pt.pt)}, porque <b class="en">${esc(w.en.toUpperCase())}</b> = ${esc(w.pt)}.`);
+    mallu('duvida', `⏰ O tempo acabou! A peça certa era <b class="en">${esc(peca.en.en)}</b> | ${esc(peca.pt.pt)}, porque <b class="en">${esc(w.en.toUpperCase())}</b> = ${esc(w.pt)}.`, true);
     desenhar();
     agendar(1600);
   }
@@ -523,7 +542,7 @@
   $('mesa').addEventListener('click', (e) => {
     const alvo = e.target.closest('.encaixe, .aberta');
     if (!alvo || !jogo) return;
-    if (jogo.selecionada === null) { mallu('aponta', 'Primeiro toque numa das suas peças lá embaixo. 👇'); return; }
+    if (jogo.selecionada === null) { mallu('aponta', 'Primeiro toque numa das suas peças lá embaixo. 👇', true); return; }
     tentar(jogo.selecionada, ladoDe(alvo));
   });
 

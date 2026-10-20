@@ -21,7 +21,10 @@ Mesmo padrão do jogoABC: HTML/CSS/JS puros, relatório com PDF e Dockerfile ngi
 - Toque numa peça para **ouvir a palavra em inglês** (voz do aparelho, en-US).
 
 ## Modos
-- **Aprender**: sem pressa, com tradução, frase de exemplo a cada jogada e botão 💡 de dica (depois de 2 erros a peça certa brilha).
+- **Aprender**: sem pressa, com tradução, frase de exemplo a cada jogada e dica (depois de 2 erros a peça certa brilha).
+- **Dica da Mallu**: a fala da Mallu fica num botão (com um **!** quando há mensagem nova), para não cobrir a mesa. Ela só abre sozinha
+  nos avisos importantes (erro, passe com peça, tempo esgotado) e fecha em 6 s ou com um toque. No Aprender, sem mensagem nova,
+  o botão mostra a dica da jogada.
 - **Desafio**: 30 s por jogada (barra), pontos (+10 de primeira, +5 se em até 8 s, +3 depois de errar, +2 por passe certo)
   e **medalhas** ao fechar as 28 peças (ouro: quase tudo de primeira, sem passe errado nem tempo esgotado; prata: 60%+; bronze).
 - **Professor**: escolhe as categorias, copia um **link para a turma** (`?cat=ABF`), vê as palavras mais erradas e os alunos do aparelho.

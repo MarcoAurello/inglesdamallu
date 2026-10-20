@@ -1,15 +1,15 @@
 // Guarda os arquivos do jogo para funcionar offline.
 // Ao mudar qualquer arquivo, aumente a VERSAO (e o ?v= no index.html) para os aparelhos baixarem a nova.
-const VERSAO = 'verbs-domino-v2';
+const VERSAO = 'verbs-domino-v3';
 
 const ARQUIVOS = [
   './',
   './index.html',
-  './style.css?v=2',
-  './palavras.js?v=2',
-  './domino.js?v=2',
-  './musica.js?v=2',
-  './jogo.js?v=2',
+  './style.css?v=3',
+  './palavras.js?v=3',
+  './domino.js?v=3',
+  './musica.js?v=3',
+  './jogo.js?v=3',
   './vendor/jspdf.umd.min.js',
   './manifest.json',
   ...['mallu.jpg', 'mallu_corre.png', 'mallu_pula.png', 'mallu_aponta.png', 'mallu_pensa.png', 'mallu_duvida.png', 'mallu_feliz.png'].map((f) => `./assets/mallu/${f}`),
